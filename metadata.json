@@ -1,0 +1,8 @@
+{
+  "name": "1016 라린느 B2B 디자인컨설팅_final",
+  "description": "라린느 B2B 대량주문 디자인컨설팅 및 맞춤 컴퓨터 자수 신청 워킹 프로토타입",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
