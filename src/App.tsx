@@ -1,165 +1,178 @@
-import React, { useState, useEffect } from 'react';
-import { Header } from './components/Header';
+import React, { useState } from 'react';
+import { ConsultingRequest, ConsultingStatus, Quotation } from './types';
+import { INITIAL_CONSULTING_REQUESTS } from './mockData';
+import { Navbar } from './components/Navbar';
+import { GuideSection } from './components/GuideSection';
 import { ConsultingForm } from './components/ConsultingForm';
 import { HistoryView } from './components/HistoryView';
-import { GuideSection } from './components/GuideSection';
-import { ConsultingRequest } from './types';
-import { INITIAL_CONSULTING_REQUESTS } from './data/constants';
-import { CheckCircle2 } from 'lucide-react';
+import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck } from 'lucide-react';
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState<'guide' | 'consulting' | 'history'>('guide');
-  const [highlightId, setHighlightId] = useState<string | undefined>(undefined);
-  const [consultingPreset, setConsultingPreset] = useState<string | undefined>(undefined);
+export function App() {
+  const [consultingRequests, setConsultingRequests] = useState<ConsultingRequest[]>(
+    INITIAL_CONSULTING_REQUESTS
+  );
+  const [activeTab, setActiveTab] = useState<'form' | 'history' | 'guide'>('history');
+  const [isAdmin, setIsAdmin] = useState<boolean>(true); // Default to admin for convenient inspection of the user's questions
 
-  // Persistent storage for consulting requests
-  const [consultingRequests, setConsultingRequests] = useState<ConsultingRequest[]>(() => {
-    try {
-      const saved = localStorage.getItem('medilyn_consulting_requests') || localStorage.getItem('lalune_consulting_requests');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const hasQuote = parsed.some((p: ConsultingRequest) => Boolean(p.quotation));
-          if (hasQuote) return parsed;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return INITIAL_CONSULTING_REQUESTS;
-  });
-
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const [myConsultingCount, setMyConsultingCount] = useState<number>(() => {
-    try {
-      let saved = JSON.parse(localStorage.getItem('medilyn_my_consulting_ids') || '[]');
-      if (!Array.isArray(saved) || saved.length === 0) {
-        saved = ['LN-20261005-7721'];
-        localStorage.setItem('medilyn_my_consulting_ids', JSON.stringify(saved));
-      }
-      return Array.isArray(saved) ? saved.length : 1;
-    } catch {
-      return 1;
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('medilyn_consulting_requests', JSON.stringify(consultingRequests));
-    } catch (e) {
-      console.error(e);
-    }
-  }, [consultingRequests]);
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 4000);
-  };
-
-  const handleConsultingSubmit = (newReq: ConsultingRequest) => {
+  // 1. Customer submits a new request
+  const handleSubmitSuccess = (newReq: ConsultingRequest) => {
     setConsultingRequests([newReq, ...consultingRequests]);
-    setMyConsultingCount(prev => prev + 1);
-    showToast(`B2B 컨설팅 신청이 접수되었습니다. (접수번호: ${newReq.id})`);
-  };
-
-  const handleUpdateConsulting = (updated: ConsultingRequest) => {
-    setConsultingRequests(prev => prev.map(item => item.id === updated.id ? updated : item));
-    showToast(`B2B 컨설팅(${updated.id}) 상태가 업데이트되었습니다.`);
-  };
-
-  const handleDeleteConsulting = (id: string) => {
-    setConsultingRequests(prev => prev.filter(item => item.id !== id));
-    setMyConsultingCount(prev => Math.max(0, prev - 1));
-    showToast(`신청 내역(${id})이 삭제되었습니다.`);
-  };
-
-  const navigateToHistoryWithId = (id?: string) => {
-    setHighlightId(id);
     setActiveTab('history');
   };
 
-  return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-blue-600 selection:text-white">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-neutral-950 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-neutral-700 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span className="text-xs sm:text-sm font-medium">{toastMessage}</span>
-        </div>
-      )}
+  // 2. Customer approves quotation (ONLY callable via customer mode)
+  const handleCustomerApprove = (requestId: string) => {
+    setConsultingRequests((prev) =>
+      prev.map((req) => {
+        if (req.id === requestId) {
+          const nowStr = new Date().toISOString().slice(0, 16).replace('T', ' ');
+          return {
+            ...req,
+            status: '견적 승인완료',
+            updatedAt: nowStr,
+            quotation: req.quotation
+              ? {
+                  ...req.quotation,
+                  status: '고객승인',
+                  approvedAt: nowStr,
+                }
+              : undefined,
+          };
+        }
+        return req;
+      })
+    );
+  };
 
-      {/* Main Global Header */}
-      <Header
+  // 3. Admin saves or sends quotation
+  const handleSaveQuotation = (
+    requestId: string,
+    quotation: Quotation,
+    sendToCustomer: boolean
+  ) => {
+    setConsultingRequests((prev) =>
+      prev.map((req) => {
+        if (req.id === requestId) {
+          const nowStr = new Date().toISOString().slice(0, 16).replace('T', ' ');
+          return {
+            ...req,
+            quotation,
+            status: sendToCustomer ? '견적 발송' : req.status,
+            updatedAt: nowStr,
+          };
+        }
+        return req;
+      })
+    );
+  };
+
+  // 4. Admin updates status (e.g. deposit confirmed, production, shipment)
+  const handleUpdateStatus = (
+    requestId: string,
+    newStatus: ConsultingStatus,
+    tracking?: { courier: string; number: string }
+  ) => {
+    setConsultingRequests((prev) =>
+      prev.map((req) => {
+        if (req.id === requestId) {
+          const nowStr = new Date().toISOString().slice(0, 16).replace('T', ' ');
+          return {
+            ...req,
+            status: newStatus,
+            updatedAt: nowStr,
+            courierName: tracking?.courier || req.courierName,
+            trackingNumber: tracking?.number || req.trackingNumber,
+            depositConfirmed:
+              newStatus === '결제완료/작업진행' || newStatus === '상담 완료'
+                ? true
+                : req.depositConfirmed,
+          };
+        }
+        return req;
+      })
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900">
+      {/* Navigation */}
+      <Navbar
         activeTab={activeTab}
-        setActiveTab={(tab) => {
-          setHighlightId(undefined);
-          setActiveTab(tab);
-        }}
-        consultingCount={myConsultingCount}
+        setActiveTab={setActiveTab}
+        isAdmin={isAdmin}
+        setIsAdmin={setIsAdmin}
+        consultingCount={consultingRequests.length}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 pb-16">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'guide' && (
-          <GuideSection
-            onNavigateToConsulting={(preset) => {
-              setConsultingPreset(preset);
-              setActiveTab('consulting');
-            }}
-          />
+          <GuideSection onStartRequest={() => setActiveTab('form')} />
         )}
 
-        {activeTab === 'consulting' && (
-          <ConsultingForm
-            onSubmitSuccess={handleConsultingSubmit}
-            onNavigateToHistory={navigateToHistoryWithId}
-            initialPreset={consultingPreset}
-          />
+        {activeTab === 'form' && (
+          <ConsultingForm onSubmitSuccess={handleSubmitSuccess} />
         )}
 
         {activeTab === 'history' && (
           <HistoryView
             consultingRequests={consultingRequests}
-            highlightId={highlightId}
-            onNavigateToConsulting={() => setActiveTab('consulting')}
-            onUpdateConsulting={handleUpdateConsulting}
-            onDeleteConsulting={handleDeleteConsulting}
+            isAdmin={isAdmin}
+            onUpdateConsultingStatus={handleUpdateStatus}
+            onSaveQuotation={handleSaveQuotation}
+            onCustomerApprove={handleCustomerApprove}
           />
         )}
       </main>
 
-      {/* Luxury Minimalist Footer */}
-      <footer className="bg-white border-t border-neutral-200 py-10 px-4 mt-auto">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-xs text-neutral-500">
-          <div className="space-y-1.5">
-            <div className="font-serif tracking-widest text-sm font-bold text-neutral-900">
-              STUDIO MEDILYN
+      {/* Footer */}
+      <footer className="bg-white border-t border-slate-200 mt-12 py-10 text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-2 md:col-span-2">
+            <div className="font-serif-brand font-bold text-slate-900 text-base">
+              LA LIGNE PARIS · B2B ATELIER
             </div>
-            <div>메디린 아틀리에 주식회사 &middot; 사업자등록번호: 211-88-92410 &middot; 통신판매업신고: 제2024-서울강남-0412호</div>
-            <div>서울특별시 강남구 압구정로 420 메디린 디자인 아틀리에 B2B 센터</div>
-            <div>고객센터: 02-540-8890 | 이메일: b2b@medilyn.co.kr | 운영시간: 평일 09:30 ~ 18:00</div>
+            <p className="text-slate-500 text-xs leading-relaxed max-w-md">
+              (주)라린느 코리아는 하이엔드 맞춤 컴퓨터 자수와 고품질 유니폼/패브릭을 제작하는 
+              B2B 대량 주문 전문 디자인 아틀리에입니다.
+            </p>
+            <div className="text-[11px] text-slate-400 pt-1 space-y-0.5">
+              <p>사업자등록번호: 211-88-90412 | 통신판매업신고: 제2026-서울성동-0419호</p>
+              <p>본사 및 아틀리에: 서울특별시 성동구 연무장길 45, 라린느 빌딩 3-4F</p>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-neutral-700">
-            <button onClick={() => setActiveTab('guide')} className="hover:underline cursor-pointer">
-              B2B 이용 가이드
+          <div className="space-y-2">
+            <div className="font-bold text-slate-900">B2B 전담 상담 센터</div>
+            <div className="space-y-1 text-slate-600">
+              <p className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-amber-700" /> 02-540-1016 (직통)</p>
+              <p className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-amber-700" /> b2b@laligne.co.kr</p>
+              <p className="text-[11px] text-slate-400">평일 09:30 ~ 18:30 (점심 12:30~13:30)</p>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="font-bold text-slate-900">품질 및 보증 안내</div>
+            <p className="text-slate-500 text-[11px] leading-relaxed">
+              라린느는 산업용 최고급 일본 다지마(Tajima) 전산 자수기를 도입하여 
+              100% 균일한 땀수와 세탁 내구성을 보장합니다.
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400">
+          <div>© 2026 LA LIGNE KOREA CO., LTD. ALL RIGHTS RESERVED.</div>
+          <div className="flex gap-4">
+            <button onClick={() => setActiveTab('guide')} className="hover:underline">이용약관</button>
+            <button onClick={() => setActiveTab('guide')} className="hover:underline">개인정보처리방침</button>
+            <button onClick={() => setIsAdmin(!isAdmin)} className="text-amber-800 font-semibold hover:underline">
+              {isAdmin ? '고객 모드로 전환' : '관리자 모드로 전환'}
             </button>
-            <span>&middot;</span>
-            <button onClick={() => setActiveTab('consulting')} className="hover:underline cursor-pointer">
-              B2B 컨설팅 신청
-            </button>
-            <span>&middot;</span>
-            <button onClick={() => setActiveTab('history')} className="hover:underline cursor-pointer">
-              신청 내역 조회
-            </button>
-            <span>&middot;</span>
-            <span className="text-neutral-400">&copy; {new Date().getFullYear()} MEDILYN. All rights reserved.</span>
           </div>
         </div>
       </footer>
     </div>
   );
 }
+
+export default App;
