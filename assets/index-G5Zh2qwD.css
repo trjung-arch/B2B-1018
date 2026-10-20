@@ -2681,3 +2681,16 @@ header {background-color:#f0efe9 !important;}
 .b2b-apply-card {
   border: 1.5px solid #cfcec5 !important;
 }
+
+/* Form sections need their own rounded container and content inset. */
+.b2b-form-section {
+  border-radius: 1.25rem !important;
+  padding: 1.5rem !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 640px) {
+  .b2b-form-section {
+    border-radius: 1rem !important;
+    padding: 1.125rem 1rem !important;
+  }
+}
