@@ -610,7 +610,7 @@ Error generating stack: `+a.message+`
       ]})
     ]}),
     s.jsx("button",{type:"button",onClick:sessionUser?onLogout:onLogin,style:{whiteSpace:"nowrap",minHeight:44,padding:"8px 12px",fontSize:12,fontWeight:700,color:"#292b29"},children:sessionUser?"로그아웃":"로그인"}),
-    s.jsx("button",{type:"button",onClick:()=>o(!M),className:`ml-2 px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-all ${M?"bg-slate-900 text-white border-slate-900":"text-slate-400 border-slate-200 hover:text-slate-700"}`,children:M?"관리자 모드ON":"관리자"})
+    s.jsx("button",{type:"button",onClick:()=>o(!M),className:`ml-2 px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-all ${M?"bg-slate-900 text-white border-slate-900":"bg-slate-900 text-white border-slate-900 hover:bg-slate-800"}`,style:{minHeight:44,padding:"10px 18px",fontSize:13,fontWeight:700,backgroundColor:"#292b29",color:"#ffffff",border:"1px solid #292b29",whiteSpace:"nowrap"},children:M?"관리자 모드ON":"관리자 로그인"})
   ]})
 ]})})}),Ls=[{step:1,id:"step1",customerLabel:"1. 신청 접수완료",customerDesc:"맞춤 상담 접수 (1영업일 내 견적 준비)",adminLabel:"1. 접수완료 (견적작성 대기)",adminDesc:"신규 접수 건 견적서 작성 필요"},{step:2,id:"step2",customerLabel:"2. 견적서확인",customerDesc:"상세 단가 및 자수 스펙 검토",adminLabel:"2. 견적 발송 (고객승인 대기)",adminDesc:"견적서 전달 완료 (고객 승인 대기)"},{step:3,id:"step3",customerLabel:"3. 고객 승인완료",customerDesc:"견적 수락 및 결제/입금 진행",adminLabel:"3. 고객 승인완료 (입금 대기)",adminDesc:"고객 승인 접수됨 (입금/결제 확인 대기)"},{step:4,id:"step4",customerLabel:"4. 결제 및 제작 출고",customerDesc:"컴퓨터 자수 제작 및 배송 완료",adminLabel:"4. 작업지시",adminDesc:"자수 제작 및 출고 작업 지시"}];function Rr(r){switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return 1;case"견적 발송":return 2;case"견적 승인완료":case"입금확인요청":return 3;case"결제완료/작업진행":case"상담 완료":return 4;case"취소/보류":default:return 0}}function Hr(r,j){return r===0?{active:!1,done:!1}:{active:r===j,done:r>j}}function dn(r,j){if(j)switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return"1. 신청 접수완료 (견적 준비중)";case"견적 발송":return"2. 견적서 도착 (승인 대기)";case"견적 승인완료":return"3. 견적 승인완료 (입금 대기)";case"입금확인요청":return"3. 입금 확인 요청중";case"결제완료/작업진행":return"4. 제작중";case"상담 완료":return"4. 제작 및 출고 배송완료";case"취소/보류":return"신청 취소 / 보류";default:return r}else switch(r){case"접수완료":return"1. 신규 접수완료 (견적작성 필요)";case"컨설턴트 배정":case"시안 제작중":return"1. 시안 검토중 (견적작성 대기)";case"견적 발송":return"2. 견적 발송완료 (고객승인 대기)";case"견적 승인완료":return"3. 고객 승인완료 (입금 대기)";case"입금확인요청":return"3. 입금확인 요청접수 (입금확인 필요)";case"결제완료/작업진행":return"4. 제작중";case"상담 완료":return"4. 출고 완료 (배송/종료)";case"취소/보류":return"상담 취소 / 보류";default:return r}}function ru(r,j){switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return"b2b-badge-urgent-blue";case"견적 발송":return j?"bg-blue-50 text-blue-700 border border-blue-300":"bg-blue-50 text-blue-700 border border-blue-200";case"견적 승인완료":case"입금확인요청":return"bg-purple-50 text-purple-700 border border-purple-200";case"결제완료/작업진행":return"bg-emerald-50 text-emerald-700 border border-emerald-200";case"상담 완료":return"bg-slate-100 text-slate-700 border border-slate-300";case"취소/보류":return"bg-rose-50 text-rose-700 border border-rose-200";default:return"bg-slate-100 text-slate-700 border border-slate-200"}}function Br(r){return!(r.quotation||r.status==="상담 완료"||r.status==="취소/보류"||r.status==="결제완료/작업진행"||r.status==="견적 승인완료")}function Ax(r){return r.quotation?r.status==="견적 발송":!1}const N2=({onStartRequest:r})=>{
   const[j,M]=V.useState(null);
@@ -1025,6 +1025,17 @@ ${compositionLine}${extraNote?`
       setEmail("maison@aesthetic.co.kr");
       setBusinessNumber("105-86-99281");
       setCustomBody(null);
+    }else if(type==="hotel"){
+      setIndustry("호텔/스파");
+      setScale("중형");
+      setItems(getRecommendedItemsByIndustry("호텔/스파"));
+      setPoints(["디자인","기능/원단","로고/자수 커스텀"]);
+      setCompanyName("그랜드 스파 & 호텔 서울");
+      setApplicantName("호텔/스파 구매담당자");
+      setPhone("010-0000-0000");
+      setEmail("hotel@example.com");
+      setBusinessNumber("");
+      setCustomBody(null);
     }else if(type==="fnb"){
       setIndustry("식음료/F&B");
       setScale("대형");
@@ -1179,7 +1190,7 @@ ${extraNote}`:""}`;
         s.jsxs("div",{className:"b2b-apply-header",children:[
           s.jsxs("div",{className:"b2b-apply-title-row",children:[
             s.jsx("span",{className:"b2b-apply-step-badge",children:"1"}),
-            s.jsx("h1",{className:"b2b-apply-main-title",children:"B2B / 대량주문 컨설팅 신청"})
+            s.jsx("h1",{className:"b2b-apply-main-title",children:"B2B 컨설팅/견적 신청"})
           ]}),
           s.jsxs("p",{className:"b2b-apply-subtitle",children:[
             "귀사의 사업형태와 규모에 따른",
@@ -1208,6 +1219,10 @@ ${extraNote}`:""}`;
             s.jsxs("button",{type:"button",onClick:()=>applyPreset("fnb"),className:`b2b-preset-pill ${preset==="fnb"?"b2b-preset-pill-active":""}`,children:[
               s.jsx("span",{children:"🍽️"}),
               "프리미엄 F&B 셰프"
+            ]}),
+            s.jsxs("button",{type:"button",onClick:()=>applyPreset("hotel"),className:`b2b-preset-pill ${preset==="hotel"?"b2b-preset-pill-active":""}`,children:[
+              s.jsx(Ib,{className:"w-4 h-4","aria-hidden":true}),
+              "호텔/스파"
             ]})
           ]})
         ]}),
@@ -2074,11 +2089,12 @@ const Ox=({consulting:r,isOpen:j,onClose:M,isAdmin:o=!1})=>j?s.jsx("div",{classN
               s.jsxs("span",{className:"font-bold text-slate-700 text-sm",children:["+",E.vatAmount.toLocaleString(),"원"]})
             ]}),
             /* Final Quotation Amount at the Very Bottom */
-            s.jsxs("div",{className:"flex items-baseline justify-between px-4 py-4 bg-blue-50/60 border-t-2 border-slate-900",children:[
+            s.jsxs("div",{className:"b2b-final-total flex items-baseline justify-between px-4 py-4",style:{borderTop:"1px solid #d8d6ce",backgroundColor:"#f7f6f1"},children:[
               s.jsx("span",{className:"text-sm sm:text-base font-black text-slate-900",children:"최종 견적 금액 :"}),
-              s.jsxs("span",{className:"text-2xl sm:text-3xl font-black text-blue-700 tracking-tight",children:[
+              s.jsxs("span",{className:"font-bold text-blue-700 tracking-tight",style:{fontSize:"clamp(20px, 2.2vw, 24px)",lineHeight:1.3},children:[
+                s.jsx("span",{className:"text-sm font-bold text-slate-700",style:{marginRight:8},children:"(VAT포함)"}),
                 E.totalAmount.toLocaleString(),
-                s.jsx("span",{className:"text-sm font-bold text-slate-700 ml-1",children:"원 (VAT포함)"})
+                "원"
               ]})
             ]})
           ]}),
@@ -2958,7 +2974,7 @@ function PrototypeLogin({onLogin,initialEmail="",adminMode=false,applicationMode
     s.jsx("h1",{style:{fontSize:24,fontWeight:800,marginBottom:12},children:adminMode?"관리자 로그인":applicationMode?"견적신청 로그인":"신청 내역 로그인"}),
     s.jsx("p",{style:{fontSize:14,color:"#5b5e55",lineHeight:1.7,marginBottom:24},children:adminMode?"관리자 테스트 계정으로 로그인하면 신청 및 견적 관리 화면을 확인할 수 있습니다.":applicationMode?"로그인 후 견적 및 디자인 컨설팅을 신청할 수 있습니다.":"신청할 때 입력한 이메일로 로그인하면 해당 업체의 신청 내역을 확인할 수 있습니다."}),
     s.jsx("label",{htmlFor:"prototype-login-email",style:{display:"block",fontSize:14,fontWeight:700,marginBottom:8},children:"이메일"}),
-    s.jsx("input",{id:"prototype-login-email",type:"email",autoComplete:"email",required:true,value:email,onChange:e=>{setEmail(e.target.value);setError("");},placeholder:adminMode?"admin@medilyn.co.kr":"신청 시 입력한 이메일",style:{width:"100%",padding:12,border:"1px solid #cbd5e1",borderRadius:12,fontSize:16}}),
+    s.jsx("input",{id:"prototype-login-email",type:"email",autoComplete:"email",required:true,value:email,onChange:e=>{setEmail(e.target.value);setError("");},placeholder:adminMode?"admin@medilyn.co.kr":"테스트이메일을 입력하세요",style:{width:"100%",padding:12,border:"1px solid #cbd5e1",borderRadius:12,fontSize:16}}),
     error&&s.jsx("p",{role:"alert",style:{color:"#be123c",fontSize:13,marginTop:8},children:error}),
     s.jsx("button",{type:"submit",style:{width:"100%",marginTop:20,minHeight:48,borderRadius:12,background:"#292b29",color:"white",fontWeight:700},children:"로그인"}),
     s.jsx("p",{style:{fontSize:12,color:"#74776d",lineHeight:1.7,marginTop:16},children:adminMode?"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 관리자: admin@medilyn.co.kr":"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 이메일: contact@lumiereclinic.kr"})

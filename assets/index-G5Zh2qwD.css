@@ -2637,3 +2637,47 @@ header {background-color:#f7f6f1 !important;}
 /* Restore the previous ivory and charcoal surface tones. */
 header {background-color:#f0efe9 !important;}
 .b2b-process-section .b2b-step-item {background-color:#f2f1eb !important;}
+
+/* White surfaces inside rounded grouping containers. */
+.b2b-main-container,
+.b2b-group-card, .b2b-group-card-active, .b2b-group-card-sub,
+.b2b-sub-group-box,
+.b2b-apply-card, .b2b-form-section,
+.b2b-benefit-card, .b2b-benefit-card-rec,
+.b2b-card-discount, .b2b-card-discount-rec, .b2b-card-value,
+.b2b-quick-card, .b2b-service-card, .b2b-faq-card,
+.b2b-consult-editor-card, .b2b-consult-tpl-section,
+.b2b-order-info-wrap, .b2b-unified-table-wrap,
+.b2b-preset-box, .b2b-step2-summary-box, .b2b-step3-container,
+.b2b-upload-box,
+.b2b-process-section .b2b-step-item {
+  background-color: #ffffff !important;
+}
+
+/* Softer outlines for the outermost grouping cards. */
+.b2b-main-container,
+.b2b-group-card,
+.b2b-apply-card {
+  border-width: 1px !important;
+  border-color: #d8d6ce !important;
+}
+
+/* Unified warm-gray grouping outlines, matching the selected list card. */
+.b2b-main-container, .b2b-group-card, .b2b-group-card-sub,
+.b2b-group-card-active, .b2b-sub-group-box, .b2b-apply-card,
+.b2b-form-section, .b2b-benefit-card, .b2b-benefit-card-rec,
+.b2b-card-discount, .b2b-card-discount-rec, .b2b-card-value,
+.b2b-quick-card, .b2b-service-card, .b2b-faq-card,
+.b2b-consult-editor-card, .b2b-consult-tpl-section,
+.b2b-order-info-wrap, .b2b-unified-table-wrap, .b2b-preset-box,
+.b2b-step2-summary-box, .b2b-step3-container, .b2b-upload-box,
+.b2b-process-section .b2b-step-item {
+  border: 1.5px solid #aaa99f !important;
+}
+
+/* Light warm-gray outline for the main grouping containers. */
+.b2b-main-container,
+.b2b-group-card,
+.b2b-apply-card {
+  border: 1.5px solid #cfcec5 !important;
+}
