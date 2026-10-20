@@ -609,7 +609,7 @@ Error generating stack: `+a.message+`
         s.jsx("span",{className:`w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center shrink-0 ${r==="history"?"bg-white text-blue-600":"bg-blue-600 text-white"}`,children:w??0})
       ]})
     ]}),
-    s.jsx("button",{type:"button",onClick:sessionUser?onLogout:onLogin,style:{whiteSpace:"nowrap",minHeight:44,padding:"8px 12px",fontSize:12,fontWeight:700,color:"#2563eb"},children:sessionUser?"로그아웃":"로그인"}),
+    s.jsx("button",{type:"button",onClick:sessionUser?onLogout:onLogin,style:{whiteSpace:"nowrap",minHeight:44,padding:"8px 12px",fontSize:12,fontWeight:700,color:"#292b29"},children:sessionUser?"로그아웃":"로그인"}),
     s.jsx("button",{type:"button",onClick:()=>o(!M),className:`ml-2 px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-all ${M?"bg-slate-900 text-white border-slate-900":"text-slate-400 border-slate-200 hover:text-slate-700"}`,children:M?"관리자 모드ON":"관리자"})
   ]})
 ]})})}),Ls=[{step:1,id:"step1",customerLabel:"1. 신청 접수완료",customerDesc:"맞춤 상담 접수 (1영업일 내 견적 준비)",adminLabel:"1. 접수완료 (견적작성 대기)",adminDesc:"신규 접수 건 견적서 작성 필요"},{step:2,id:"step2",customerLabel:"2. 견적서확인",customerDesc:"상세 단가 및 자수 스펙 검토",adminLabel:"2. 견적 발송 (고객승인 대기)",adminDesc:"견적서 전달 완료 (고객 승인 대기)"},{step:3,id:"step3",customerLabel:"3. 고객 승인완료",customerDesc:"견적 수락 및 결제/입금 진행",adminLabel:"3. 고객 승인완료 (입금 대기)",adminDesc:"고객 승인 접수됨 (입금/결제 확인 대기)"},{step:4,id:"step4",customerLabel:"4. 결제 및 제작 출고",customerDesc:"컴퓨터 자수 제작 및 배송 완료",adminLabel:"4. 작업지시",adminDesc:"자수 제작 및 출고 작업 지시"}];function Rr(r){switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return 1;case"견적 발송":return 2;case"견적 승인완료":case"입금확인요청":return 3;case"결제완료/작업진행":case"상담 완료":return 4;case"취소/보류":default:return 0}}function Hr(r,j){return r===0?{active:!1,done:!1}:{active:r===j,done:r>j}}function dn(r,j){if(j)switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return"1. 신청 접수완료 (견적 준비중)";case"견적 발송":return"2. 견적서 도착 (승인 대기)";case"견적 승인완료":return"3. 견적 승인완료 (입금 대기)";case"입금확인요청":return"3. 입금 확인 요청중";case"결제완료/작업진행":return"4. 제작중";case"상담 완료":return"4. 제작 및 출고 배송완료";case"취소/보류":return"신청 취소 / 보류";default:return r}else switch(r){case"접수완료":return"1. 신규 접수완료 (견적작성 필요)";case"컨설턴트 배정":case"시안 제작중":return"1. 시안 검토중 (견적작성 대기)";case"견적 발송":return"2. 견적 발송완료 (고객승인 대기)";case"견적 승인완료":return"3. 고객 승인완료 (입금 대기)";case"입금확인요청":return"3. 입금확인 요청접수 (입금확인 필요)";case"결제완료/작업진행":return"4. 제작중";case"상담 완료":return"4. 출고 완료 (배송/종료)";case"취소/보류":return"상담 취소 / 보류";default:return r}}function ru(r,j){switch(r){case"접수완료":case"컨설턴트 배정":case"시안 제작중":return"b2b-badge-urgent-blue";case"견적 발송":return j?"bg-blue-50 text-blue-700 border border-blue-300":"bg-blue-50 text-blue-700 border border-blue-200";case"견적 승인완료":case"입금확인요청":return"bg-purple-50 text-purple-700 border border-purple-200";case"결제완료/작업진행":return"bg-emerald-50 text-emerald-700 border border-emerald-200";case"상담 완료":return"bg-slate-100 text-slate-700 border border-slate-300";case"취소/보류":return"bg-rose-50 text-rose-700 border border-rose-200";default:return"bg-slate-100 text-slate-700 border border-slate-200"}}function Br(r){return!(r.quotation||r.status==="상담 완료"||r.status==="취소/보류"||r.status==="결제완료/작업진행"||r.status==="견적 승인완료")}function Ax(r){return r.quotation?r.status==="견적 발송":!1}const N2=({onStartRequest:r})=>{
@@ -727,19 +727,19 @@ Error generating stack: `+a.message+`
         s.jsxs("div",{className:"b2b-grid-4",children:[
           /* Step 1 */
           s.jsxs("div",{className:"b2b-step-item",children:[
-            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-blue",children:"STEP 01"}),
+            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-blue",children:"1"}),
             s.jsx("div",{className:"b2b-step-heading",children:"컨설팅 신청서 작성"}),
             s.jsx("p",{className:"b2b-step-desc",children:"병원명, 희망 제품군, 예상 수량 및 로고 자수 요청사항을 온라인으로 접수합니다."})
           ]}),
           /* Step 2 */
           s.jsxs("div",{className:"b2b-step-item",children:[
-            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-blue",children:"STEP 02"}),
+            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-blue",children:"2"}),
             s.jsx("div",{className:"b2b-step-heading",children:"견적서 발송"}),
             s.jsx("p",{className:"b2b-step-desc",children:"전담 디자이너가 세부 단가, 단체 할인율 및 납기를 반영한 정식 견적서를 고객에게 발송합니다."})
           ]}),
           /* Step 3 (Highlighted) */
           s.jsxs("div",{className:"b2b-step-item b2b-step-item-active",children:[
-            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-active",children:"STEP 03"}),
+            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-active",children:"3"}),
             s.jsx("div",{className:"b2b-step-heading",children:"고객 승인 및 결제"}),
             s.jsxs("p",{className:"b2b-step-desc",children:[
               "고객이 견적서를 검토 후 ",
@@ -749,7 +749,7 @@ Error generating stack: `+a.message+`
           ]}),
           /* Step 4 (Production) */
           s.jsxs("div",{className:"b2b-step-item b2b-step-item-final",children:[
-            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-final",children:"STEP 04"}),
+            s.jsx("span",{className:"b2b-step-tag b2b-step-tag-final",children:"4"}),
             s.jsx("div",{className:"b2b-step-heading",children:"제작 진행 후 출고"}),
             s.jsx("p",{className:"b2b-step-desc",children:"승인 후 결제 확인 즉시 작업에 착수하며 출고까지 진행과정이 대시보드에 기록됩니다."})
           ]})
@@ -770,7 +770,7 @@ Error generating stack: `+a.message+`
         /* Feature 1 */
         s.jsxs("div",{className:"b2b-service-card",children:[
           s.jsxs("div",{className:"b2b-service-header",children:[
-            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#2563eb"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
+            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#292b29"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
               s.jsx("circle",{cx:"12",cy:"8",r:"6"}),
               s.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"})
             ]}),
@@ -781,7 +781,7 @@ Error generating stack: `+a.message+`
         /* Feature 2 */
         s.jsxs("div",{className:"b2b-service-card",children:[
           s.jsxs("div",{className:"b2b-service-header",children:[
-            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#2563eb"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
+            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#292b29"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
               s.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"})
             ]}),
             "정밀 펀칭(Digitizing) 프로세스"
@@ -791,7 +791,7 @@ Error generating stack: `+a.message+`
         /* Feature 3 */
         s.jsxs("div",{className:"b2b-service-card",children:[
           s.jsxs("div",{className:"b2b-service-header",children:[
-            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#2563eb"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
+            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#292b29"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
               s.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"})
             ]}),
             "서류 없는 1분 온라인 접수 & 세금계산서 즉시 처리"
@@ -801,7 +801,7 @@ Error generating stack: `+a.message+`
         /* Feature 4 */
         s.jsxs("div",{className:"b2b-service-card",children:[
           s.jsxs("div",{className:"b2b-service-header",children:[
-            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#2563eb"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
+            s.jsx("svg",{className:"b2b-service-icon",style:{color:"#292b29"},fill:"none",stroke:"currentColor",strokeWidth:"2",viewBox:"0 0 24 24",children:[
               s.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"})
             ]}),
             "24시간 내 견적 회신 & 자수시안 제공"
@@ -1689,21 +1689,21 @@ function renderRequestedItemsTable(r){
       }),
       s.jsx("tbody",{children:list.map((it,idx)=>
         s.jsxs("tr",{children:[
-          s.jsx("td",{style:{textAlign:"center",fontWeight:700,color:"#64748b"},children:idx+1}),
+          s.jsx("td",{style:{textAlign:"center",fontWeight:700,color:"#74776d"},children:idx+1}),
           s.jsx("td",{style:{fontWeight:600,color:"#1e293b"},children:it.industry||"메디컬"}),
           s.jsx("td",{style:{textAlign:"center"},children:
             s.jsx("span",{className:genderBadgeClass(it.gender),children:it.gender||"여성"})
           }),
           s.jsx("td",{style:{fontWeight:800,color:"#1e3a8a"},children:it.product}),
-          s.jsxs("td",{style:{textAlign:"center",fontWeight:800,color:"#2563eb",fontSize:"13.5px"},children:[it.qty,"벌"]}),
-          s.jsx("td",{style:{color:"#475569",fontWeight:500},children:it.note||"-"})
+          s.jsxs("td",{style:{textAlign:"center",fontWeight:800,color:"#292b29",fontSize:"13.5px"},children:[it.qty,"벌"]}),
+          s.jsx("td",{style:{color:"#5b5e55",fontWeight:500},children:it.note||"-"})
         ]},it.id||idx)
       )}),
       s.jsx("tfoot",{children:
         s.jsxs("tr",{children:[
           s.jsx("td",{colSpan:4,style:{textAlign:"right",fontWeight:800,color:"#1e293b"},children:"총 주문 수량 합계:"}),
-          s.jsxs("td",{style:{textAlign:"center",fontWeight:900,color:"#2563eb",fontSize:"15px"},children:[tot,"벌"]}),
-          s.jsxs("td",{style:{color:"#64748b",fontWeight:600},children:["총 ",list.length,"개 품목 구성"]})
+          s.jsxs("td",{style:{textAlign:"center",fontWeight:900,color:"#292b29",fontSize:"15px"},children:[tot,"벌"]}),
+          s.jsxs("td",{style:{color:"#74776d",fontWeight:600},children:["총 ",list.length,"개 품목 구성"]})
         ]})
       })
     ]})
@@ -2597,7 +2597,7 @@ const Ox=({consulting:r,isOpen:j,onClose:M,isAdmin:o=!1})=>j?s.jsx("div",{classN
                           }),
                           "현금영수증"
                         ]}),
-                        s.jsxs("label",{className:"b2b-radio-label",style:{color:"#64748b",fontWeight:600},children:[
+                        s.jsxs("label",{className:"b2b-radio-label",style:{color:"#74776d",fontWeight:600},children:[
                           s.jsx("input",{
                             type:"radio",
                             name:"taxInvoiceTypeRadio",
@@ -2952,16 +2952,16 @@ function renderWorkflowAction(request,onWorkOrder,onCreateQuotation){
  stage===3&&request.quotation?.approvedAt&&s.jsx("button",{type:"button",onClick:()=>onWorkOrder(request.id,"결제완료/작업진행"),className:"px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs",children:"입금 확인 및 작업지시"})
  ]});
 }
-function PrototypeLogin({onLogin,initialEmail="",adminMode=false}) {
+function PrototypeLogin({onLogin,initialEmail="",adminMode=false,applicationMode=false}) {
   const [email,setEmail]=V.useState(initialEmail),[error,setError]=V.useState("");
-  return s.jsxs("form",{onSubmit:e=>{e.preventDefault();const value=email.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){setError("이메일 주소를 확인해 주세요.");return;}if(adminMode&&value!=="admin@medilyn.co.kr"){setError("테스트 관리자 이메일 admin@medilyn.co.kr을 입력해 주세요.");return;}onLogin({email:value,role:adminMode?"admin":"customer"});},style:{maxWidth:440,margin:"48px auto",padding:32,background:"white",border:"1px solid #dbeafe",borderRadius:24},children:[
-    s.jsx("h1",{style:{fontSize:24,fontWeight:800,marginBottom:12},children:adminMode?"관리자 로그인":"신청 내역 로그인"}),
-    s.jsx("p",{style:{fontSize:14,color:"#475569",lineHeight:1.7,marginBottom:24},children:adminMode?"관리자 테스트 계정으로 로그인하면 신청 및 견적 관리 화면을 확인할 수 있습니다.":"신청할 때 입력한 이메일로 로그인하면 해당 업체의 신청 내역을 확인할 수 있습니다."}),
+  return s.jsxs("form",{onSubmit:e=>{e.preventDefault();const value=email.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){setError("이메일 주소를 확인해 주세요.");return;}if(adminMode&&value!=="admin@medilyn.co.kr"){setError("테스트 관리자 이메일 admin@medilyn.co.kr을 입력해 주세요.");return;}onLogin({email:value,role:adminMode?"admin":"customer"});},style:{maxWidth:440,margin:"48px auto",padding:32,background:"white",border:"1px solid #e0ded6",borderRadius:24},children:[
+    s.jsx("h1",{style:{fontSize:24,fontWeight:800,marginBottom:12},children:adminMode?"관리자 로그인":applicationMode?"견적신청 로그인":"신청 내역 로그인"}),
+    s.jsx("p",{style:{fontSize:14,color:"#5b5e55",lineHeight:1.7,marginBottom:24},children:adminMode?"관리자 테스트 계정으로 로그인하면 신청 및 견적 관리 화면을 확인할 수 있습니다.":applicationMode?"로그인 후 견적 및 디자인 컨설팅을 신청할 수 있습니다.":"신청할 때 입력한 이메일로 로그인하면 해당 업체의 신청 내역을 확인할 수 있습니다."}),
     s.jsx("label",{htmlFor:"prototype-login-email",style:{display:"block",fontSize:14,fontWeight:700,marginBottom:8},children:"이메일"}),
     s.jsx("input",{id:"prototype-login-email",type:"email",autoComplete:"email",required:true,value:email,onChange:e=>{setEmail(e.target.value);setError("");},placeholder:adminMode?"admin@medilyn.co.kr":"신청 시 입력한 이메일",style:{width:"100%",padding:12,border:"1px solid #cbd5e1",borderRadius:12,fontSize:16}}),
     error&&s.jsx("p",{role:"alert",style:{color:"#be123c",fontSize:13,marginTop:8},children:error}),
-    s.jsx("button",{type:"submit",style:{width:"100%",marginTop:20,minHeight:48,borderRadius:12,background:"#2563eb",color:"white",fontWeight:700},children:"로그인"}),
-    s.jsx("p",{style:{fontSize:12,color:"#64748b",lineHeight:1.7,marginTop:16},children:adminMode?"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 관리자: admin@medilyn.co.kr":"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 이메일: contact@lumiereclinic.kr"})
+    s.jsx("button",{type:"submit",style:{width:"100%",marginTop:20,minHeight:48,borderRadius:12,background:"#292b29",color:"white",fontWeight:700},children:"로그인"}),
+    s.jsx("p",{style:{fontSize:12,color:"#74776d",lineHeight:1.7,marginTop:16},children:adminMode?"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 관리자: admin@medilyn.co.kr":"프로토타입용 로그인으로 비밀번호는 필요하지 않습니다. 테스트 이메일: contact@lumiereclinic.kr"})
   ]});
 }
-function z2(){const[sessionUser,setSessionUser]=V.useState(null),[loginEmail,setLoginEmail]=V.useState("");const[r,j]=V.useState(Yb),[M,o]=V.useState("guide"),[w,O]=V.useState(!1),requestAdmin=()=>{setSessionUser(null);O(!1);o(w?"guide":"admin-login")},F=E=>{j([{...E,ownerEmail:sessionUser?.email||E.email},...r]);setLoginEmail(E.email||"");o("history")},W=(E,meta)=>{j(N=>N.map(A=>{if(A.id===E&&!w&&A.status==="견적 발송"&&A.quotation&&sessionUser&&String(A.ownerEmail||A.email).trim().toLowerCase()===sessionUser.email){const now=new Date(),pad=n=>String(n).padStart(2,"0"),ee=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;return{...A,status:"견적 승인완료",updatedAt:ee,processTimes:recordProcessTime(A,3,ee),quotation:A.quotation?{...A.quotation,status:"고객승인",approvedAt:ee,approvedBy:(meta&&meta.approverName)||A.applicantName,agreedTermsCount:6}:void 0}}return A}))},k=(E,N,A)=>{j(ee=>ee.map(Q=>{if(Q.id===E&&w&&Rr(Q.status)>=1&&Rr(Q.status)<=2){const $=nowDateTime();return{...Q,quotation:A?{...N,sentAt:N.sentAt||$}:N,status:A?"견적 발송":Q.status,updatedAt:$,processTimes:recordProcessTime(Q,A?2:0,$)}}return Q}))},te=(E,N,A)=>{j(ee=>ee.map(Q=>{if(Q.id===E&&w&&((N==="결제완료/작업진행"&&["견적 승인완료","입금확인요청"].includes(Q.status)&&Q.quotation?.approvedAt)||(N==="상담 완료"&&Q.status==="결제완료/작업진행"))){const $=nowDateTime();return{...Q,status:N,updatedAt:$,shippedAt:N==="상담 완료"?$:Q.shippedAt,processTimes:recordProcessTime(Q,Rr(N),$),courierName:(A==null?void 0:A.courier)||Q.courierName,trackingNumber:(A==null?void 0:A.number)||Q.trackingNumber,depositConfirmed:N==="결제완료/작업진행"||N==="상담 완료"?!0:Q.depositConfirmed}}return Q}))};return s.jsxs("div",{className:"min-h-screen bg-slate-50 flex flex-col text-slate-900",children:[s.jsx(g2,{activeTab:M,setActiveTab:o,isAdmin:w,setIsAdmin:requestAdmin,sessionUser:sessionUser,onLogin:()=>{setSessionUser(null);O(!1);o("history")},onLogout:()=>{setSessionUser(null);O(!1);o("guide")},consultingCount:w?r.length:sessionUser?r.filter(x=>String(x.ownerEmail||x.email).trim().toLowerCase()===sessionUser.email).length:0}),s.jsxs("main",{className:"flex-1 max-w-[1040px] w-full mx-auto px-4 sm:px-6 py-8",children:[M==="guide"&&s.jsx(N2,{onStartRequest:()=>o("form")}),M==="form"&&s.jsx(j2,{onSubmitSuccess:F}),M==="admin-login"&&s.jsx(PrototypeLogin,{adminMode:true,onLogin:user=>{setSessionUser(user);O(!0);o("history")}},"admin-login"),M==="history"&&(w||sessionUser?s.jsx(T2,{consultingRequests:w?r:r.filter(x=>String(x.ownerEmail||x.email).trim().toLowerCase()===sessionUser.email),isAdmin:w,onUpdateConsultingStatus:te,onSaveQuotation:k,onCustomerApprove:W},w?"admin":sessionUser.email):s.jsx(PrototypeLogin,{initialEmail:loginEmail,onLogin:user=>{setSessionUser(user);O(!1);o("history")}},"customer-login"))]}),s.jsxs("footer",{className:"bg-white border-t border-slate-200 mt-12 py-10 text-xs text-slate-500",children:[s.jsxs("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8",children:[s.jsxs("div",{className:"space-y-2 md:col-span-2",children:[s.jsx("div",{className:"font-serif-brand font-bold text-slate-900 text-base",children:"MEDILIN · B2B ATELIER"}),s.jsx("p",{className:"text-slate-500 text-xs leading-relaxed max-w-md",children:"(주)메디린 코리아는 하이엔드 맞춤 컴퓨터 자수와 고품질 유니폼/패브릭을 제작하는 B2B 대량 주문 전문 디자인 아틀리에입니다."}),s.jsxs("div",{className:"text-[11px] text-slate-400 pt-1 space-y-0.5",children:[s.jsx("p",{children:"사업자등록번호: 211-88-90412 | 통신판매업신고: 제2026-서울성동-0419호"}),s.jsx("p",{children:"본사 및 아틀리에: 서울특별시 성동구 연무장길 45, 메디린 빌딩 3-4F"})]})]}),s.jsxs("div",{className:"space-y-2",children:[s.jsx("div",{className:"font-bold text-slate-900",children:"B2B 전담 상담 센터"}),s.jsxs("div",{className:"space-y-1 text-slate-600",children:[s.jsxs("p",{className:"flex items-center gap-1.5",children:[s.jsx(ox,{className:"w-3.5 h-3.5 text-blue-600"})," 02-540-1016 (직통)"]}),s.jsxs("p",{className:"flex items-center gap-1.5",children:[s.jsx(ux,{className:"w-3.5 h-3.5 text-blue-600"})," b2b@laligne.co.kr"]}),s.jsx("p",{className:"text-[11px] text-slate-400",children:"평일 09:30 ~ 18:30 (점심 12:30~13:30)"})]})]}),s.jsxs("div",{className:"space-y-2",children:[s.jsx("div",{className:"font-bold text-slate-900",children:"품질 및 보증 안내"}),s.jsx("p",{className:"text-slate-500 text-[11px] leading-relaxed",children:"메디린은 산업용 최고급 일본 다지마(Tajima) 전산 자수기를 도입하여 100% 균일한 땀수와 세탁 내구성을 보장합니다."})]})]}),s.jsxs("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400",children:[s.jsx("div",{children:"© 2026 MEDILIN KOREA CO., LTD. ALL RIGHTS RESERVED."}),s.jsxs("div",{className:"flex gap-4",children:[s.jsx("button",{onClick:()=>o("guide"),className:"hover:underline",children:"이용약관"}),s.jsx("button",{onClick:()=>o("guide"),className:"hover:underline",children:"개인정보처리방침"}),s.jsx("button",{onClick:requestAdmin,className:"text-blue-600 font-semibold hover:underline",children:w?"고객 모드로 전환":"관리자 모드로 전환"})]})]})]})]})}qb.createRoot(document.getElementById("root")).render(s.jsx(zm.StrictMode,{children:s.jsx(z2,{})}));
+function z2(){const[sessionUser,setSessionUser]=V.useState(null),[loginEmail,setLoginEmail]=V.useState("");const[r,j]=V.useState(Yb),[M,o]=V.useState("guide"),[w,O]=V.useState(!1),requestAdmin=()=>{setSessionUser(null);O(!1);o(w?"guide":"admin-login")},F=E=>{if(!sessionUser){o("form");return;}j([{...E,ownerEmail:sessionUser.email},...r]);setLoginEmail(E.email||"");o("history")},W=(E,meta)=>{j(N=>N.map(A=>{if(A.id===E&&!w&&A.status==="견적 발송"&&A.quotation&&sessionUser&&String(A.ownerEmail||A.email).trim().toLowerCase()===sessionUser.email){const now=new Date(),pad=n=>String(n).padStart(2,"0"),ee=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;return{...A,status:"견적 승인완료",updatedAt:ee,processTimes:recordProcessTime(A,3,ee),quotation:A.quotation?{...A.quotation,status:"고객승인",approvedAt:ee,approvedBy:(meta&&meta.approverName)||A.applicantName,agreedTermsCount:6}:void 0}}return A}))},k=(E,N,A)=>{j(ee=>ee.map(Q=>{if(Q.id===E&&w&&Rr(Q.status)>=1&&Rr(Q.status)<=2){const $=nowDateTime();return{...Q,quotation:A?{...N,sentAt:N.sentAt||$}:N,status:A?"견적 발송":Q.status,updatedAt:$,processTimes:recordProcessTime(Q,A?2:0,$)}}return Q}))},te=(E,N,A)=>{j(ee=>ee.map(Q=>{if(Q.id===E&&w&&((N==="결제완료/작업진행"&&["견적 승인완료","입금확인요청"].includes(Q.status)&&Q.quotation?.approvedAt)||(N==="상담 완료"&&Q.status==="결제완료/작업진행"))){const $=nowDateTime();return{...Q,status:N,updatedAt:$,shippedAt:N==="상담 완료"?$:Q.shippedAt,processTimes:recordProcessTime(Q,Rr(N),$),courierName:(A==null?void 0:A.courier)||Q.courierName,trackingNumber:(A==null?void 0:A.number)||Q.trackingNumber,depositConfirmed:N==="결제완료/작업진행"||N==="상담 완료"?!0:Q.depositConfirmed}}return Q}))};return s.jsxs("div",{className:"min-h-screen bg-slate-50 flex flex-col text-slate-900",children:[s.jsx(g2,{activeTab:M,setActiveTab:o,isAdmin:w,setIsAdmin:requestAdmin,sessionUser:sessionUser,onLogin:()=>{setSessionUser(null);O(!1);o("history")},onLogout:()=>{setSessionUser(null);O(!1);o("guide")},consultingCount:w?r.length:sessionUser?r.filter(x=>String(x.ownerEmail||x.email).trim().toLowerCase()===sessionUser.email).length:0}),s.jsxs("main",{className:"flex-1 max-w-[1040px] w-full mx-auto px-4 sm:px-6 py-8",children:[M==="guide"&&s.jsx(N2,{onStartRequest:()=>{o("form");window.scrollTo({top:0,behavior:"instant"});}}),M==="form"&&(sessionUser?s.jsx(j2,{onSubmitSuccess:F}):s.jsx(PrototypeLogin,{applicationMode:true,initialEmail:loginEmail,onLogin:user=>{setSessionUser(user);O(!1);o("form")}},"application-login")),M==="admin-login"&&s.jsx(PrototypeLogin,{adminMode:true,onLogin:user=>{setSessionUser(user);O(!0);o("history")}},"admin-login"),M==="history"&&(w||sessionUser?s.jsx(T2,{consultingRequests:w?r:r.filter(x=>String(x.ownerEmail||x.email).trim().toLowerCase()===sessionUser.email),isAdmin:w,onUpdateConsultingStatus:te,onSaveQuotation:k,onCustomerApprove:W},w?"admin":sessionUser.email):s.jsx(PrototypeLogin,{initialEmail:loginEmail,onLogin:user=>{setSessionUser(user);O(!1);o("history")}},"customer-login"))]}),s.jsxs("footer",{className:"bg-white border-t border-slate-200 mt-12 py-10 text-xs text-slate-500",children:[s.jsxs("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8",children:[s.jsxs("div",{className:"space-y-2 md:col-span-2",children:[s.jsx("div",{className:"font-serif-brand font-bold text-slate-900 text-base",children:"MEDILIN · B2B ATELIER"}),s.jsx("p",{className:"text-slate-500 text-xs leading-relaxed max-w-md",children:"(주)메디린 코리아는 하이엔드 맞춤 컴퓨터 자수와 고품질 유니폼/패브릭을 제작하는 B2B 대량 주문 전문 디자인 아틀리에입니다."}),s.jsxs("div",{className:"text-[11px] text-slate-400 pt-1 space-y-0.5",children:[s.jsx("p",{children:"사업자등록번호: 211-88-90412 | 통신판매업신고: 제2026-서울성동-0419호"}),s.jsx("p",{children:"본사 및 아틀리에: 서울특별시 성동구 연무장길 45, 메디린 빌딩 3-4F"})]})]}),s.jsxs("div",{className:"space-y-2",children:[s.jsx("div",{className:"font-bold text-slate-900",children:"B2B 전담 상담 센터"}),s.jsxs("div",{className:"space-y-1 text-slate-600",children:[s.jsxs("p",{className:"flex items-center gap-1.5",children:[s.jsx(ox,{className:"w-3.5 h-3.5 text-blue-600"})," 02-540-1016 (직통)"]}),s.jsxs("p",{className:"flex items-center gap-1.5",children:[s.jsx(ux,{className:"w-3.5 h-3.5 text-blue-600"})," b2b@laligne.co.kr"]}),s.jsx("p",{className:"text-[11px] text-slate-400",children:"평일 09:30 ~ 18:30 (점심 12:30~13:30)"})]})]}),s.jsxs("div",{className:"space-y-2",children:[s.jsx("div",{className:"font-bold text-slate-900",children:"품질 및 보증 안내"}),s.jsx("p",{className:"text-slate-500 text-[11px] leading-relaxed",children:"메디린은 산업용 최고급 일본 다지마(Tajima) 전산 자수기를 도입하여 100% 균일한 땀수와 세탁 내구성을 보장합니다."})]})]}),s.jsxs("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400",children:[s.jsx("div",{children:"© 2026 MEDILIN KOREA CO., LTD. ALL RIGHTS RESERVED."}),s.jsxs("div",{className:"flex gap-4",children:[s.jsx("button",{onClick:()=>o("guide"),className:"hover:underline",children:"이용약관"}),s.jsx("button",{onClick:()=>o("guide"),className:"hover:underline",children:"개인정보처리방침"}),s.jsx("button",{onClick:requestAdmin,className:"text-blue-600 font-semibold hover:underline",children:w?"고객 모드로 전환":"관리자 모드로 전환"})]})]})]})]})}qb.createRoot(document.getElementById("root")).render(s.jsx(zm.StrictMode,{children:s.jsx(z2,{})}));
