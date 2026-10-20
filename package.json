@@ -1,29 +1,9 @@
 {
-  "name": "1016-lalune-b2b-consulting",
-  "private": true,
+  "name": "medilyn-b2b-ui",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite preview --port 3000 --host 0.0.0.0",
-    "build": "echo 'Build succeeded'",
-    "lint": "echo 'No lint errors'",
-    "preview": "vite preview --port 3000 --host 0.0.0.0"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.59.0",
-    "nanoid": "^5.1.5",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "tailwind-merge": "^3.5.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^5.7.2",
-    "vite": "^6.4.4"
+    "dev": "python3 -m http.server 3000 --bind 127.0.0.1",
+    "start": "python3 -m http.server 3000 --bind 127.0.0.1"
   }
 }
