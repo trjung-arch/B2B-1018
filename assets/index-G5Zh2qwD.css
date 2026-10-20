@@ -2694,3 +2694,11 @@ header {background-color:#f0efe9 !important;}
     padding: 1.125rem 1rem !important;
   }
 }
+
+/* Progress semantics: current green, completed neutral, upcoming subdued. */
+.b2b-progress-current { background:#ecfdf5 !important; border:1.5px solid #6ee7b7 !important; color:#065f46 !important; font-weight:700; }
+.b2b-progress-done { background:#f5f4f0 !important; border:1px solid #d8d6ce !important; color:#616159 !important; font-weight:500; }
+.b2b-progress-pending { background:#fff !important; border:1px solid #e5e3dc !important; color:#96988d !important; font-weight:400; }
+.b2b-progress-marker-current { background:#059669 !important; color:#fff !important; }
+.b2b-progress-marker-done { background:#deddd5 !important; color:#616159 !important; }
+.b2b-progress-marker-pending { background:#eeede7 !important; color:#96988d !important; }
